@@ -1,0 +1,78 @@
+.ma-div-login {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(42, 47, 104);
+}
+
+.ma-div-login > div{
+    width: 300px;
+    background-color: #fff;
+    box-shadow: 0 3px 10px 0 #464e54;
+    padding: 40px
+}
+
+.ma-div-navifation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.ma-div-login input {
+    width: 100%;
+    border: none;
+    border-bottom: 3px;
+    background-color: #ebebeb;
+    color: #3b4e5c;
+    padding: 16px; 
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.ma-div-login button {
+    display: block;
+    margin: 0 auto;
+    min-width: 160px;    
+    border: none;
+    background-color: rgb(42, 47, 104);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 17px 18px 15px 16px;
+    text-transform: uppercase;
+}    
+
+.ma-div-login img {
+    width: 300px;
+    margin-bottom: 30px;
+}
+
+.ma-div-login a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(42, 47, 104);
+    cursor: pointer;
+    padding: 16px;
+}
+
+.ma-input-error{
+    border: solid 1px !important;
+    border-color: red !important;
+}
+
+.ma-div-login a svg {
+    vertical-align: top;
+}
+
+.ma-div-login  p {
+    color: rgb(42, 47, 104); 
+    margin-bottom: 30px;
+}
+
+.ma-div-login .ma-p-error{
+    color: rgb(248, 91, 91) !important; 
+}
