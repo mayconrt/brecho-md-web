@@ -1,9 +1,9 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 
-export default function AddressForm() {
+export default function AddressForm({ setDados }) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -13,6 +13,7 @@ export default function AddressForm() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
           <TextField
+            onChange={(e) => setDados(e)}
             required
             id="zipCode"
             name="zipCode"
@@ -22,6 +23,7 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={4}>
           <TextField
+            onChange={(e) => setDados(e)}
             required
             id="uf"
             name="uf"
@@ -31,6 +33,7 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={4}>
           <TextField
+            onChange={(e) => setDados(e)}
             required
             id="numberHouse"
             name="numberHouse"
@@ -43,6 +46,7 @@ export default function AddressForm() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
+            onChange={(e) => setDados(e)}
             required
             id="street"
             name="street"
@@ -53,6 +57,7 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            onChange={(e) => setDados(e)}
             required
             id="neighborhood"
             name="neighborhood"
@@ -66,6 +71,7 @@ export default function AddressForm() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
+            onChange={(e) => setDados(e)}
             required
             id="city"
             name="city"
@@ -76,6 +82,7 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            onChange={(e) => setDados(e)}
             required
             id="complement"
             name="complement"
@@ -85,7 +92,6 @@ export default function AddressForm() {
           />
         </Grid>
       </Grid>
-
     </React.Fragment>
   );
 }

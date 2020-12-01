@@ -1,22 +1,13 @@
-import React, {Fragment} from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-import Login from './pages/login'
-import Main from './pages/Main'
-
-import './style.css'
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import Routes from "./routes";
 
 function App() {
   return (
     <div className="App">
-      <Fragment>
-        <BrowserRouter>
-            <Switch>
-              <Route path="/" exact component={Login} />
-              <Route path="/home" component={Main} />
-            </Switch>
-        </BrowserRouter>
-      </Fragment>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
     </div>
   );
 }
