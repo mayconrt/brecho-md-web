@@ -1,6 +1,5 @@
 .ma-div-main-header {
   grid-area: header;
-  background-color: saddlebrown;
 }
 
 .ma-div-main-sidebar {
@@ -9,7 +8,6 @@
 
 .ma-div-main-container {
   grid-area: container;
-  background-color: rgb(115, 19, 139);
 }
 
 .ma-div-main {

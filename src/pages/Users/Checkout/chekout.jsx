@@ -85,7 +85,7 @@ export default function Checkout() {
   };
 
   return (
-    <React.Fragment>
+    <div>
       <CssBaseline />
       <main className={classes.layout}>
         <Typography component="h1" variant="h4" align="center">
@@ -99,7 +99,7 @@ export default function Checkout() {
           ))}
         </Stepper>
 
-        <React.Fragment>
+        <div>
           {getStepContent(activeStep, setDados)}
           <div className={classes.buttons}>
             {activeStep !== 0 && (
@@ -128,8 +128,8 @@ export default function Checkout() {
               </Button>
             )}
           </div>
-        </React.Fragment>
+        </div>
       </main>
-    </React.Fragment>
+    </div>
   );
 }

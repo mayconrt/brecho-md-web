@@ -1,4 +1,5 @@
-.ma-div-container-items{
-    padding: 16px;
-    box-sizing: border-box;    
+.ma-div-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }

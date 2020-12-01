@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 
 export default function AddressForm({ setDados }) {
   return (
-    <React.Fragment>
+    <div>
       <Typography variant="h6" gutterBottom>
         Endereço
       </Typography>
@@ -92,6 +92,6 @@ export default function AddressForm({ setDados }) {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </div>
   );
 }

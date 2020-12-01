@@ -22,7 +22,7 @@ const UserInfo = ({ setDados }) => {
   };
 
   return (
-    <Fragment>
+    <div>
       <Typography variant="h6" gutterBottom>
         Dados Funcionário
       </Typography>
@@ -152,7 +152,7 @@ const UserInfo = ({ setDados }) => {
           </Grid>
         </Grid>
       </MuiPickersUtilsProvider>
-    </Fragment>
+    </div>
   );
 };
 
