@@ -88,7 +88,7 @@ export default function Checkout() {
     data.address = addressData
 
     api.post(URL_EMPLOYEE, data).then(res=>{
-      console.log(res)
+      console.log('teste', res)
     })
   };
 
