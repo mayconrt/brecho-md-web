@@ -1,7 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
+<<<<<<< HEAD
 import Login from './pages/Login';
 import Main from './pages/Main'
 import Home from './pages/Home'
@@ -45,7 +46,13 @@ ReactDOM.render(
         <Route exact path="/authentication" render={() => NoAuth(Login)} />
       </Switch>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+=======
+import "./global.css";
 
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+>>>>>>> ad1edf2666316ad6594b098bd786dadc0eacf29a
+  </React.StrictMode>,
+  document.getElementById("root")
+);

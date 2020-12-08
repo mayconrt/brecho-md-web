@@ -1,3 +1,22 @@
-.ma-div-main{
-    height: 100vh;
+.ma-div-main-header {
+  grid-area: header;
+}
+
+.ma-div-main-sidebar {
+  grid-area: menu;
+}
+
+.ma-div-main-container {
+  grid-area: container;
+}
+
+.ma-div-main {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  grid-template-rows: 10% 1fr;
+
+  grid-template-areas:
+    "header header"
+    "menu container";
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .ma-div-menu{
     float: left;
     width: 250px;
@@ -5,42 +6,38 @@
     border-right-style: solid;
     border-right-width: 3px;
     border-right-color: #eeebeb;
+=======
+.ma-div-menu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f5f3f3;
+  padding: 30px 25px;
+  color: #a7a4a4;
+>>>>>>> ad1edf2666316ad6594b098bd786dadc0eacf29a
 }
 
-
-.ma-div-menu-items{
-    width: 100%;
-    padding: 16px;
-    box-sizing: border-box;
-}
-
-.ma-div-menu-home{
-    display: flex;
-    width: 100%;
-    align-items: center;
-}
-
-.ma-div-menu svg {
-    color: #a7a4a4;
+.ma-div-menu-home {
+  display: flex;
+  align-items: center;
 }
 
 .ma-div-menu-home svg {
-    font-size: 25px;
-    text-align: center;
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.ma-div-menu-icon {
+  display: flex;
+  align-items: center;
+  margin: 25px 10px;
 }
 
 .ma-div-menu span {
-    color: #a7a4a4;
-    font-weight: 700;
-    vertical-align: top;
-    padding: 10px;
-    margin: 10px;
+  font-weight: 600;
+  margin-left: 10px;
 }
-
-.ma-div-menu-list {
-    display: grid;
-    width: 100%;
-}
+<<<<<<< HEAD
 
 .ma-div-menu-icon{
     padding: 10px;
@@ -54,3 +51,5 @@
 .ma-div-menu a:hover{
     color:  #7a7979;
 }
+=======
+>>>>>>> ad1edf2666316ad6594b098bd786dadc0eacf29a
