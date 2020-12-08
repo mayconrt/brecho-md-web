@@ -16,7 +16,7 @@ const Menu = () => {
                 <div className="ma-div-menu-list">
                     <div className="ma-div-menu-icon">
                         <FaUsers title="Usuários" />
-                        <span><Link to="/user">Usuários</Link></span>
+                        <span><Link to="/user">Funcionários</Link></span>
                     </div>
                     <div className="ma-div-menu-icon">
                         <FaMoneyCheck title="Holerires" />

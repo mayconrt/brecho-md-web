@@ -5,9 +5,11 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
-import UserInfo from './userInfo';
+import UserInfo from './employeeInfo';
 import AddressForm from './address';
 import UploadImage from './uploadImage'
+
+import {api, URL_EMPLOYEE} from '../../../api/services'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -58,7 +60,9 @@ export default function Checkout() {
     rg: "",
     birthDate: null,
     startDate: null,
-    endDate: null   
+    endDate: null,
+    file:[],
+    address: {}
   }
   const initAddressData = {
     zipCode: "",
@@ -79,7 +83,13 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleSend = () => {
-    console.log('Send: ', infoData)
+    const data = infoData
+    data.file = fileData
+    data.address = addressData
+
+    api.post(URL_EMPLOYEE, data).then(res=>{
+      console.log(res)
+    })
   };
 
   const handleInfoData = (element, date) => {
@@ -110,8 +120,10 @@ export default function Checkout() {
 
   const handleFileData = (file) => {
     
-    if (file)
+    if (file){
+      console.log(file)
       setFileData(file)
+    }
 
   };
 

@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Login from './pages/Login';
 import Main from './pages/Main'
 import Home from './pages/Home'
-import Users from './pages/Users'
+import Employee from './pages/Employee'
 import Vaction from './pages/Vaction'
 import Payslip from './pages/Payslip'
 import PunchIn from './pages/PunchIn'
@@ -38,7 +38,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" render={() => NoAuth(Login)} />
         <Route exact path="/home" render={() => RequireAuth(Home)} />
-        <Route exact path="/user" render={() => RequireAuth(Users)} />
+        <Route exact path="/user" render={() => RequireAuth(Employee)} />
         <Route exact path="/payslip" render={() => RequireAuth(Payslip)} />
         <Route exact path="/punch-in" render={() => RequireAuth(PunchIn)} />
         <Route exact path="/vaction" render={() => RequireAuth(Vaction)} />

@@ -9,7 +9,7 @@ class DropzoneAreaExample extends Component{
     };
   }
   handleChange(files){
-    this.props.setData(null, files)
+    this.props.setData(files)
     this.setState({
       files: files
     });
