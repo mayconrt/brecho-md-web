@@ -58,6 +58,7 @@ export default function Checkout() {
     celphone: "",
     position: "",
     rg: "",
+    cpf:"",
     birthDate: null,
     startDate: null,
     endDate: null,
@@ -94,6 +95,8 @@ export default function Checkout() {
 
   const handleInfoData = (element, date) => {
     let tempData = infoData
+
+    console.log('teste')
     
     if(date){
       const tempDate = new Date(date)
@@ -121,7 +124,6 @@ export default function Checkout() {
   const handleFileData = (file) => {
     
     if (file){
-      console.log(file)
       setFileData(file)
     }
 

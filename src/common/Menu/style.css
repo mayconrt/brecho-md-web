@@ -1,20 +1,11 @@
-<<<<<<< HEAD
 .ma-div-menu{
     float: left;
     width: 250px;
+    height: 100%;
     background-color: #f5f3f3;
     border-right-style: solid;
     border-right-width: 3px;
     border-right-color: #eeebeb;
-=======
-.ma-div-menu {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: #f5f3f3;
-  padding: 30px 25px;
-  color: #a7a4a4;
->>>>>>> ad1edf2666316ad6594b098bd786dadc0eacf29a
 }
 
 .ma-div-menu-home {
@@ -30,14 +21,13 @@
 .ma-div-menu-icon {
   display: flex;
   align-items: center;
-  margin: 25px 10px;
+  margin: 10px;
 }
 
 .ma-div-menu span {
   font-weight: 600;
   margin-left: 10px;
 }
-<<<<<<< HEAD
 
 .ma-div-menu-icon{
     padding: 10px;
@@ -51,5 +41,3 @@
 .ma-div-menu a:hover{
     color:  #7a7979;
 }
-=======
->>>>>>> ad1edf2666316ad6594b098bd786dadc0eacf29a

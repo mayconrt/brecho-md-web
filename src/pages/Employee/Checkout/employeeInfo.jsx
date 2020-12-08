@@ -60,39 +60,6 @@ const UserInfo = (props) => {
         </Grid>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              onChange={(e) => setDados(e)}
-              required
-              id="position"
-              name="position"
-              label="Função"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              onChange={(e) => setDados(e)}
-              required
-              id="rg"
-              name="rg"
-              label="RG"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              onChange={(e) => setDados(e)}
-              required
-              id="cpf"
-              name="cpf"
-              label="CPF"
-              fullWidth
-            />
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
               required

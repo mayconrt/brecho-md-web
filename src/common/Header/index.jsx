@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useState } from 'react'
-import { Redirect, Link } from 'react-router-dom'
-=======
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
->>>>>>> ad1edf2666316ad6594b098bd786dadc0eacf29a
+import { Redirect } from 'react-router-dom'
 
 import { FaSignOutAlt, FaUser } from "react-icons/fa";
 import logoWhite from "../../assets/logo-white.png";
