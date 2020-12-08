@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 import { FaSignOutAlt, FaUser } from 'react-icons/fa';
 import logoWhite from '../../assets/logo-white.png'

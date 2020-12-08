@@ -4,6 +4,7 @@ import './style.css'
 
 const Home = () =>{
     return(
+
         <div className="ma-div-home">
             <CardNumber title="Total Funcioários" value="40"/>
             <CardNumber title="H. visualizados" value="30"/>

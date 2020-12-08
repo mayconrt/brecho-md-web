@@ -4,7 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import UserInfo from './userInfo';
 import AddressForm from './address';
@@ -49,25 +48,72 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Dados Pessoais', 'Endereço', 'Foto'];
 
-function getStepContent(step, setData) {
-  switch (step) {
-    case 0:
-      return <UserInfo setDados={setData}/>;
-    case 1:
-      return <AddressForm setDados={setData}/>;
-    case 2:
-      return <UploadImage setDados={setData}/>;
-    default:
-      throw new Error('Unknown step');
-  }
-}
-
 export default function Checkout() {
-  const [data,setData] = useState({}) 
+  const initInfoData = {
+    name: "",
+    email: "",
+    telphone: "",
+    celphone: "",
+    position: "",
+    rg: "",
+    birthDate: null,
+    startDate: null,
+    endDate: null   
+  }
+  const initAddressData = {
+    zipCode: "",
+    uf: "",
+    numberHouse: "",
+    street: "",
+    neighborhood: "",
+    city: "",
+    complement: ""    
+  }
+  const initFileData = []
 
+  const [infoData, setInfoData] = useState(initInfoData)
+  const [addressData, setAddressData] = useState(initAddressData)
+  const [fileData, setFileData] = useState(initFileData)
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleSend = () => {
+    console.log('Send: ', infoData)
+  };
+
+  const handleInfoData = (element, date) => {
+    let tempData = infoData
+    
+    if(date){
+      const tempDate = new Date(date)
+      tempData[element.id] = tempDate
+    }else{
+      tempData[element.target.id] = element.target.value
+    }
+      
+    setInfoData({...tempData})
+
+  };
+
+
+  const handleAddressData = (element) => {
+    let tempData = addressData
+
+    if (element)
+      tempData[element.target.id] = element.target.value
+
+      setAddressData({...tempData})
+
+  };  
+
+
+  const handleFileData = (file) => {
+    
+    if (file)
+      setFileData(file)
+
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -93,33 +139,27 @@ export default function Checkout() {
         </Stepper>
 
         <React.Fragment>
-            {getStepContent(activeStep, setData)}
-            <div className={classes.buttons}>
-              {activeStep !== 0 && (
-                <Button onClick={handleBack} className={classes.button}>
-                  Voltar
-                </Button>
-              )}
+          {activeStep==0 &&
+            <UserInfo setData={handleInfoData} 
+                       handleNext={handleNext} 
+                       data={infoData}
+                       classes={classes} />            
+          }
 
-              {activeStep === steps.length - 1 ?
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  type="submit"
-                >
-                  Enviar
-              </Button> :
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                  className={classes.button}
-                >
-                  Próximo
-              </Button>
-              }
-            </div>
+          {activeStep==1 &&
+            <AddressForm setData={handleAddressData} 
+                          handleBack={handleBack} 
+                          handleNext={handleNext} 
+                          data={addressData}
+                          classes={classes} />          
+          }
+          {activeStep==2 &&
+            <UploadImage setData={handleFileData} 
+                          handleBack={handleBack} 
+                          handleSend={handleSend} 
+                          data={fileData}
+                          classes={classes} />          
+          }          
         </React.Fragment>
 
       </main>

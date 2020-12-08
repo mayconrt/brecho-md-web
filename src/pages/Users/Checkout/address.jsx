@@ -2,8 +2,9 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
-export default function AddressForm() {
+export default function AddressForm(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -18,6 +19,8 @@ export default function AddressForm() {
             name="zipCode"
             label="CEP"
             fullWidth
+            value={props.data.zipCode}
+            onChange={e => props.setData(e)} 
           />
         </Grid>
         <Grid item xs={12} sm={4}>
@@ -27,6 +30,8 @@ export default function AddressForm() {
             name="uf"
             label="UF"
             fullWidth
+            value={props.data.uf}
+            onChange={e => props.setData(e)}             
           />
         </Grid>
         <Grid item xs={12} sm={4}>
@@ -36,6 +41,8 @@ export default function AddressForm() {
             name="numberHouse"
             label="Numero"
             fullWidth
+            value={props.data.numberHouse}
+            onChange={e => props.setData(e)} 
           />
         </Grid>
       </Grid>
@@ -48,7 +55,8 @@ export default function AddressForm() {
             name="street"
             label="Rua"
             fullWidth
-            autoComplete="given-name"
+            value={props.data.street}
+            onChange={e => props.setData(e)} 
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -58,7 +66,8 @@ export default function AddressForm() {
             name="neighborhood"
             label="Bairro"
             fullWidth
-            autoComplete="given-name"
+            value={props.data.neighborhood}
+            onChange={e => props.setData(e)} 
           />
         </Grid>
       </Grid>
@@ -71,7 +80,8 @@ export default function AddressForm() {
             name="city"
             label="Cidade"
             fullWidth
-            autoComplete="given-name"
+            value={props.data.city}
+            onChange={e => props.setData(e)} 
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -81,10 +91,28 @@ export default function AddressForm() {
             name="complement"
             label="Complemento"
             fullWidth
-            autoComplete="given-name"
+            value={props.data.complement}
+            onChange={e => props.setData(e)} 
           />
         </Grid>
       </Grid>
+
+      <div className={props.classes.buttons}>
+
+                <Button onClick={props.handleBack} className={props.classes.button}>
+                  Voltar
+                </Button>
+
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={props.handleNext}
+                  className={props.classes.button}
+                >
+                  Próximo
+              </Button>
+              
+            </div>
 
     </React.Fragment>
   );
