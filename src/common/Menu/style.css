@@ -41,3 +41,7 @@
 .ma-div-menu a:hover{
     color:  #7a7979;
 }
+
+.ma-div-menu-items{
+  margin: 10px;
+}

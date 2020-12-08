@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { FaBookReader, FaHome, FaMoneyCheck, FaUmbrellaBeach, FaUsers } from 'react-icons/fa'
+import { FaBookReader, FaHome, FaMoneyCheck, FaUmbrellaBeach, FaUserCheck, FaUsers } from 'react-icons/fa'
 import './style.css'
 
 const Menu = () => {
@@ -15,8 +15,13 @@ const Menu = () => {
         </div>
         <div className="ma-div-menu-list">
           <div className="ma-div-menu-icon">
-            <FaUsers title="Usuários" />
-            <span><Link to="/user">Funcionários</Link></span>
+            <FaUserCheck title="Usuários" />
+            <span><Link to="/user">Usuários</Link></span>
+          </div>
+
+          <div className="ma-div-menu-icon">
+            <FaUsers title="Funcionários" />
+            <span><Link to="/employee">Funcionários</Link></span>
           </div>
           <div className="ma-div-menu-icon">
             <FaMoneyCheck title="Holerires" />

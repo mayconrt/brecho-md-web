@@ -9,6 +9,7 @@ import Employee from './pages/Employee'
 import Vaction from './pages/Vaction'
 import Payslip from './pages/Payslip'
 import PunchIn from './pages/PunchIn'
+import User from './pages/User'
 
 import CredentialManager from './common/Auth/CredentialsManager'
 
@@ -37,7 +38,8 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" render={() => NoAuth(Login)} />
         <Route exact path="/home" render={() => RequireAuth(Home)} />
-        <Route exact path="/user" render={() => RequireAuth(Employee)} />
+        <Route exact path="/user" render={() => RequireAuth(User)} />
+        <Route exact path="/employee" render={() => RequireAuth(Employee)} />
         <Route exact path="/payslip" render={() => RequireAuth(Payslip)} />
         <Route exact path="/punch-in" render={() => RequireAuth(PunchIn)} />
         <Route exact path="/vaction" render={() => RequireAuth(Vaction)} />

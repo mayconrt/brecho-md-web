@@ -7,9 +7,6 @@ import Button from '@material-ui/core/Button';
 export default function AddressForm(props) {
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Foto de Perfil
-      </Typography>
 
       <DropzoneArea setData={props.setData}/>
 

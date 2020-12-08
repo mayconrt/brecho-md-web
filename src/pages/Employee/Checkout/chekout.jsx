@@ -95,8 +95,6 @@ export default function Checkout() {
 
   const handleInfoData = (element, date) => {
     let tempData = infoData
-
-    console.log('teste')
     
     if(date){
       const tempDate = new Date(date)

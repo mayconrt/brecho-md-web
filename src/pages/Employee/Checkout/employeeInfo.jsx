@@ -30,9 +30,6 @@ const UserInfo = (props) => {
 
   return (
     <Fragment>
-      <Typography variant="h6" gutterBottom>
-        Dados Funcionário
-            </Typography>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
