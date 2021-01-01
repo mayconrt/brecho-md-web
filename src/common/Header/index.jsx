@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 
 import { FaSignOutAlt, FaUser } from "react-icons/fa";
-import logoWhite from "../../assets/logo-white.png";
+import logoWhite from "../../assets/logo-official.png";
 
 import "./style.css";
 
@@ -28,7 +28,7 @@ const Home = () => {
       <div className="ma-div-header-info">
         <div className="ma-div-header-login">
           <FaUser title="Usuário" />
-          <span>mayconrt</span>
+          <span>M&D</span>
           <FaSignOutAlt size="18px" title="Sair" onClick={handleLogOut} />
         </div>
       </div>

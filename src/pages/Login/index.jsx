@@ -5,7 +5,7 @@ import ResetPasswordForm from "./reset-password";
 
 import "./style.css";
 
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo-official.png";
 
 const LoginForm = () => {
   const [login, setLogin] = useState(true);
