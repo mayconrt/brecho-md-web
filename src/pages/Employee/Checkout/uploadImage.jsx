@@ -1,5 +1,4 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import DropzoneArea from '../../../common/File/dropZoneArea'
 import Button from '@material-ui/core/Button';
 

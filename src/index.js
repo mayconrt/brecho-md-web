@@ -5,11 +5,10 @@ import {Route, BrowserRouter, Switch, Redirect} from 'react-router-dom'
 import Login from './pages/Login';
 import Main from './pages/Main'
 import Home from './pages/Home'
-import Employee from './pages/Employee'
-import Vaction from './pages/Vaction'
-import Payslip from './pages/Payslip'
-import PunchIn from './pages/PunchIn'
-import User from './pages/User'
+import Product from './pages/Product'
+import Client from './pages/Client'
+import PurchaseOrder from './pages/PurchaseOrder'
+import SalesOrder from './pages/SalesOrder'
 
 import CredentialManager from './common/Auth/CredentialsManager'
 
@@ -38,11 +37,10 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" render={() => NoAuth(Login)} />
         <Route exact path="/home" render={() => RequireAuth(Home)} />
-        <Route exact path="/user" render={() => RequireAuth(User)} />
-        <Route exact path="/employee" render={() => RequireAuth(Employee)} />
-        <Route exact path="/payslip" render={() => RequireAuth(Payslip)} />
-        <Route exact path="/punch-in" render={() => RequireAuth(PunchIn)} />
-        <Route exact path="/vaction" render={() => RequireAuth(Vaction)} />
+        <Route exact path="/product" render={() => RequireAuth(Product)} />
+        <Route exact path="/client" render={() => RequireAuth(Client)} />
+        <Route exact path="/purchase-order" render={() => RequireAuth(PurchaseOrder)} />
+        <Route exact path="/sales-order" render={() => RequireAuth(SalesOrder)} />
         <Route exact path="/authentication" render={() => NoAuth(Login)} />
       </Switch>
     </BrowserRouter>

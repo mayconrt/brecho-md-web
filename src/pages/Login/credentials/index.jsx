@@ -13,7 +13,6 @@ const CredentialsForm = (props) => {
         CredentialManager.setUserToken('dfafdsafda')
         CredentialManager.setAuthenticatedUser(true)
         setAuth(true)
-        console.log("Data submitted: ", data);
     
     }
 

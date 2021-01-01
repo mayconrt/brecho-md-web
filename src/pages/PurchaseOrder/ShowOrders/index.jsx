@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -20,8 +20,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-import { api, URL_EMPLOYEE } from '../../../api/services'
-
+import { api, URL_PURCHASE_ORDER } from '../../../api/services'
 
 
 function descendingComparator(a, b, orderBy) {
@@ -51,10 +50,12 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Nome' },
-    { id: 'rg', numeric: false, disablePadding: false, label: 'RG' },
-    { id: 'celphone', numeric: false, disablePadding: false, label: 'Celular' },
-
+    { id: 'id', numeric: false, disablePadding: true, label: 'Id' },
+    { id: 'productName', numeric: false, disablePadding: false, label: 'Produto' },
+    { id: 'quantity', numeric: false, disablePadding: false, label: 'Quantidade' },
+    { id: 'unit_value', numeric: false, disablePadding: false, label: 'Valor Unitario' },
+    { id: 'discount_value', numeric: false, disablePadding: false, label: 'Total Desconto' },
+    { id: 'total_value', numeric: false, disablePadding: false, label: 'Valor Total' },
 ];
 
 function EnhancedTableHead(props) {
@@ -62,6 +63,7 @@ function EnhancedTableHead(props) {
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
+
 
     return (
         <TableHead>
@@ -130,9 +132,8 @@ const useToolbarStyles = makeStyles((theme) => ({
     },
 }));
 
-const EnhancedTableToolbar = (props) => {
+const EnhancedTableToolbar = ({ numSelected, showOrderEdit, submitOrderDelete }) => {
     const classes = useToolbarStyles();
-    const { numSelected } = props;
 
     return (
         <Toolbar
@@ -146,27 +147,27 @@ const EnhancedTableToolbar = (props) => {
                 </Typography>
             ) : (
                     <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-                        Funcionários
+                        Pedidos
                     </Typography>
                 )}
 
             {numSelected > 0 ? (
                 <React.Fragment>
-                    <Tooltip title="Delete">
-                        <IconButton aria-label="delete" onClick={e=> props.handleDelete(e)}>
+                    <Tooltip title="Excluir">
+                        <IconButton aria-label="delete" onClick={event => submitOrderDelete(event)}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
 
-                    <Tooltip title="Edit">
-                        <IconButton aria-label="Edit" onClick={e=> props.handleUpdate(e)}>
+                    <Tooltip title="Editar">
+                        <IconButton aria-label="edit" onClick={event => showOrderEdit(event)}>
                             <EditIcon />
                         </IconButton>
                     </Tooltip>
                 </React.Fragment>
             ) : (
                     <Tooltip title="Filter list">
-                        <IconButton aria-label="filter list" >
+                        <IconButton aria-label="filter list">
                             <FilterListIcon />
                         </IconButton>
                     </Tooltip>
@@ -212,21 +213,19 @@ export default function EnhancedTable(props) {
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-
     const [rows, setRows] = useState([]);
 
     React.useEffect(() => {
-        
+
         (async () => {
-          const response = await fetch('http://localhost:8080/employee');
-          const employee = await response.json();
-          
-          setRows(employee.data)
-          
-    
+
+            api.get(`${URL_PURCHASE_ORDER}/all`).then(response => {
+                setRows(response.data.data)
+            })
+
         })();
-    
-      }, []);    
+
+    }, []);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -236,7 +235,7 @@ export default function EnhancedTable(props) {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
+            const newSelecteds = rows.map((n) => n.userName);
             setSelected(newSelecteds);
             return;
         }
@@ -272,29 +271,54 @@ export default function EnhancedTable(props) {
         setPage(0);
     };
 
-    const handleUpdate = () =>  {
-        const employee = rows.filter(function(obj) { return obj.name == selected[0]; });
-        
-        props.handleChange(employee[0], 2)
-    }    
+    const showOrderEdit = () => {
+        const orderSelected = rows.filter(function (obj) { return obj.id == selected[0]; });
+        const order = {
+            product: {
+                id: "",
+                name: "",
+                description: "",
+                quantity: "",
+                price: ""
+            },
+            quantity: "",
+            unit_value: "",
+            discount_value: "",
+            total_value: ""
+        }        
 
-    const handleDelete = () =>  {
-        const employee = rows.filter(function(obj) { return obj.name == selected[0]; });
-        
-        api.delete(`${URL_EMPLOYEE}/${employee[0].id}`).then(response => {
-            props.handleChange(1)
-          })        
-        
-    }        
+        order.product.id = orderSelected[0].productId
+        order.product.name = orderSelected[0].productName
+        order.product.price = orderSelected[0].price
 
-    const isSelected = (name) => selected.indexOf(name) !== -1;
+        order.id = orderSelected[0].id
+        order.quantity = orderSelected[0].quantity
+        order.unit_value = orderSelected[0].unit_value
+        order.discount_value = orderSelected[0].discount_value
+        order.total_value = orderSelected[0].total_value
+
+        console.log('sera', orderSelected[0])
+        props.changeTab(order, 2)
+    }
+
+    const submitOrderDelete = () => {
+        const orderSelected = rows.filter(function (obj) { return obj.id == selected[0]; });
+        const orders = rows.filter(function (obj) { return obj.id != selected[0]; });
+
+        api.delete(`${URL_PURCHASE_ORDER}/${orderSelected[0].id}`).then(response => {
+            setRows(orders)
+        })
+
+    };
+
+    const isSelected = (id) => selected.indexOf(id) !== -1;
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <EnhancedTableToolbar numSelected={selected.length} handleUpdate={handleUpdate} handleDelete={handleDelete}/>
+                <EnhancedTableToolbar numSelected={selected.length} showOrderEdit={showOrderEdit} submitOrderDelete={submitOrderDelete} />
                 <TableContainer>
                     <Table
                         className={classes.table}
@@ -312,20 +336,20 @@ export default function EnhancedTable(props) {
                             rowCount={rows.length}
                         />
                         <TableBody>
-                            {stableSort(rows, getComparator(order, orderBy))
+                            {rows.length > 0 && stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
+                                    const isItemSelected = isSelected(row.id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.name)}
+                                            onClick={(event) => handleClick(event, row.id)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.name}
+                                            key={row.id}
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
@@ -335,10 +359,13 @@ export default function EnhancedTable(props) {
                                                 />
                                             </TableCell>
                                             <TableCell component="th" id={labelId} scope="row" padding="none">
-                                                {row.name}
+                                                {row.id}
                                             </TableCell>
-                                            <TableCell align="left">{row.rg}</TableCell>
-                                            <TableCell align="left">{row.celphone}</TableCell>
+                                            <TableCell align="left">{row.productName}</TableCell>
+                                            <TableCell align="left">{row.quantity}</TableCell>
+                                            <TableCell align="left">{row.unit_value}</TableCell>
+                                            <TableCell align="left">{row.discount_value}</TableCell>
+                                            <TableCell align="left">{row.total_value}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -353,7 +380,7 @@ export default function EnhancedTable(props) {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={rows.length}
+                    count={rows.length || 1}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}

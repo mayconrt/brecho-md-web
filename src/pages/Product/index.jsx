@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -6,10 +6,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 
-import CheckOut from './Checkout/chekout'
-import Search from './Search'
-
-import './style.css'
+import ProductForm from './ProductForm'
+import ShowProducts from './ShowProducts'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -49,47 +47,31 @@ const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.background.paper,
         width: 800,
-    },
+    }
 }));
 
 export default function FullWidthTabs() {
+
     const classes = useStyles();
     const theme = useTheme();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
+    const [product, setProduct] = useState({})
 
-    const initEmployee = {
-        id:"",
-        name: "",
-        email: "",
-        telphone: "",
-        celphone: "",
-        position: "",
-        rg: "",
-        cpf: "",
-        birthDate: null,
-        startDate: null,
-        endDate: null,
-        file: [],
-        address: {}
-    }
-    const [employeeData, setEmployeeData] = React.useState(initEmployee);
+    const changeTab = (productEdit, newValue) => {
+        if(productEdit){
+            setProduct({...productEdit})
+        }
 
-    const handleChange = (data, newValue) => {
-        
-        if (data) {
-            setEmployeeData({...data})
-        }        
         setValue(newValue);
     };
 
     return (
-        <div className="div-ma-users">
-
+        <div className="div-ma-user">
             <div className={classes.root}>
                 <AppBar position="static" color="default">
                     <Tabs
                         value={value}
-                        onChange={handleChange}
+                        onChange={changeTab}
                         indicatorColor="primary"
                         textColor="primary"
                         variant="fullWidth"
@@ -102,14 +84,15 @@ export default function FullWidthTabs() {
                 </AppBar>
 
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <Search handleChange={handleChange}/>
+                    <ShowProducts changeTab={changeTab}/>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <CheckOut setValue={setValue}/>
+                    <ProductForm isModEdit={false} showProducts={changeTab}/>
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    <CheckOut employeeData={employeeData} setValue={setValue} edit={true}/>
+                    <ProductForm productEdit={product} isModEdit={true} showProducts={changeTab}/>
                 </TabPanel>
+
             </div>
         </div>
     );

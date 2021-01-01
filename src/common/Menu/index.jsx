@@ -15,26 +15,22 @@ const Menu = () => {
         </div>
         <div className="ma-div-menu-list">
           <div className="ma-div-menu-icon">
-            <FaUserCheck title="Usuários" />
-            <span><Link to="/user">Usuários</Link></span>
+            <FaUserCheck title="Produtos" />
+            <span><Link to="/product">Produtos</Link></span>
           </div>
 
           <div className="ma-div-menu-icon">
-            <FaUsers title="Funcionários" />
-            <span><Link to="/employee">Funcionários</Link></span>
+            <FaUsers title="Clientes" />
+            <span><Link to="/client">Clientes</Link></span>
           </div>
           <div className="ma-div-menu-icon">
-            <FaMoneyCheck title="Holerires" />
-            <span><Link to="/payslip">Holerires</Link></span>
+            <FaMoneyCheck title="Compra" />
+            <span><Link to="/purchase-order">Pedido Compra</Link></span>
           </div>
           <div className="ma-div-menu-icon">
-            <FaBookReader title="Controle de Ponto" />
-            <span><Link to="/punch-in">Controle de Ponto</Link></span>
-          </div>
-          <div className="ma-div-menu-icon">
-            <FaUmbrellaBeach title="vaction" />
-            <span><Link to="/vaction">Férias</Link></span>
-          </div>
+            <FaMoneyCheck title="Vendas" />
+            <span><Link to="/sales-order">Pedido Venda</Link></span>
+          </div>          
         </div>
       </div>
     </div>

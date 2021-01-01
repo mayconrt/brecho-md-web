@@ -9,7 +9,7 @@ import UserInfo from './employeeInfo';
 import AddressForm from './address';
 import UploadImage from './uploadImage'
 
-import {api, URL_EMPLOYEE} from '../../../api/services'
+import { api, URL_EMPLOYEE, URL_UPLOADIMAGEPERFIL } from '../../../api/services'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Dados Pessoais', 'Endereço', 'Foto'];
 
-export default function Checkout() {
+export default function Checkout({ employeeData, setValue, edit }) {
   const initInfoData = {
     name: "",
     email: "",
@@ -58,11 +58,10 @@ export default function Checkout() {
     celphone: "",
     position: "",
     rg: "",
-    cpf:"",
+    cpf: "",
     birthDate: null,
     startDate: null,
     endDate: null,
-    file:[],
     address: {}
   }
   const initAddressData = {
@@ -72,7 +71,7 @@ export default function Checkout() {
     street: "",
     neighborhood: "",
     city: "",
-    complement: ""    
+    complement: ""
   }
   const initFileData = []
 
@@ -84,26 +83,36 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleSend = () => {
+    const metodo = (edit) ? "patch" : "post"
     const data = infoData
-    data.file = fileData
+    const urlEmployee = (edit)? `${URL_EMPLOYEE}/${infoData.id}`:URL_EMPLOYEE
+    
     data.address = addressData
+    
+    api[metodo](urlEmployee, data).then(response => {
+      const filePerfil = new FormData()
+      const urlUploadImagePerfil = `${URL_UPLOADIMAGEPERFIL}/${response.data.data.id}`
+      filePerfil.append('file', fileData[0], response.data.data.id)      
 
-    api.post(URL_EMPLOYEE, data).then(res=>{
-      console.log('teste', res)
+      api.post(urlUploadImagePerfil, filePerfil).then(response => {
+        console.log('teste')
+      })
+
+      setValue(0)
     })
   };
 
   const handleInfoData = (element, date) => {
     let tempData = infoData
-    
-    if(date){
+
+    if (date) {
       const tempDate = new Date(date)
       tempData[element.id] = tempDate
-    }else{
+    } else {
       tempData[element.target.id] = element.target.value
     }
-      
-    setInfoData({...tempData})
+
+    setInfoData({ ...tempData })
 
   };
 
@@ -114,14 +123,14 @@ export default function Checkout() {
     if (element)
       tempData[element.target.id] = element.target.value
 
-      setAddressData({...tempData})
+    setAddressData({ ...tempData })
 
-  };  
+  };
 
 
   const handleFileData = (file) => {
-    
-    if (file){
+
+    if (file) {
       setFileData(file)
     }
 
@@ -134,6 +143,15 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+
+  React.useEffect(() => {
+    if (employeeData) {
+      setInfoData({ ...employeeData })
+      setAddressData({ ...employeeData.address })
+      setFileData({ ...employeeData.file })
+    }
+  }, []);
 
   return (
     <React.Fragment>
@@ -151,27 +169,27 @@ export default function Checkout() {
         </Stepper>
 
         <React.Fragment>
-          {activeStep==0 &&
-            <UserInfo setData={handleInfoData} 
-                       handleNext={handleNext} 
-                       data={infoData}
-                       classes={classes} />            
+          {activeStep == 0 &&
+            <UserInfo setData={handleInfoData}
+              handleNext={handleNext}
+              data={infoData}
+              classes={classes} />
           }
 
-          {activeStep==1 &&
-            <AddressForm setData={handleAddressData} 
-                          handleBack={handleBack} 
-                          handleNext={handleNext} 
-                          data={addressData}
-                          classes={classes} />          
+          {activeStep == 1 &&
+            <AddressForm setData={handleAddressData}
+              handleBack={handleBack}
+              handleNext={handleNext}
+              data={addressData}
+              classes={classes} />
           }
-          {activeStep==2 &&
-            <UploadImage setData={handleFileData} 
-                          handleBack={handleBack} 
-                          handleSend={handleSend} 
-                          data={fileData}
-                          classes={classes} />          
-          }          
+          {activeStep == 2 &&
+            <UploadImage setData={handleFileData}
+              handleBack={handleBack}
+              handleSend={handleSend}
+              data={fileData}
+              classes={classes} />
+          }
         </React.Fragment>
 
       </main>
