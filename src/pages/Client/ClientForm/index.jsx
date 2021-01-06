@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import Alert from '../../../common/Alert'
 
 import { api, URL_CLIENT } from '../../../api/services'
 
@@ -15,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ClientForm = ({clientEdit, isModEdit, showClients}) => {
+    const [showMessage, setShowMessage] = useState(false)
+    const [message, setMessage] = useState("Produto processado com sucesso")
+    const [typeMessage, setTypeMessage] = useState("success")    
     const classes = useStyles();
     const initializeClient = {
         name: "",
@@ -52,7 +56,11 @@ const ClientForm = ({clientEdit, isModEdit, showClients}) => {
 
     const submitClientInsert = () => {
         api.post(URL_CLIENT, client).then(response => {
-            showClients(null, 0)
+            showMessageApi(response)
+            setClient(initializeClient)
+
+        }).catch(error => {
+            showMessageApi(error.response)
         })
 
     };    
@@ -60,10 +68,25 @@ const ClientForm = ({clientEdit, isModEdit, showClients}) => {
     const submitClientUpdate = () => {
 
         api.patch(`${URL_CLIENT}/${client.id}`, client).then(response => {
-            showClients(null, 0)
+            showMessageApi(response)
+
+        }).catch(error => {
+            showMessageApi(error.response)
         })
 
     };
+
+    const showMessageApi = (response) => {
+        if (response.status == 200) {
+            setTypeMessage("success")
+        } else {
+            setTypeMessage("error")
+        }
+
+        setMessage(response.data.message)
+        setShowMessage(true)
+
+    };    
     
     return (
         <React.Fragment>
@@ -125,6 +148,9 @@ const ClientForm = ({clientEdit, isModEdit, showClients}) => {
             >
                 SALVAR
             </Button>
+            {showMessage &&
+                <Alert type={typeMessage} message={message} showMessage={setShowMessage} />
+            }            
         </React.Fragment>
     )
 }

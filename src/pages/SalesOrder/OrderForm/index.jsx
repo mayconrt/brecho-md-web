@@ -4,10 +4,11 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Alert from '../../../common/Alert'
 import FieldAutocomplete from '../Products'
+import CurrencyNumber from '../../../common/CurrencyNumber'
 
-import { api, URL_ORDER, URL_CLIENT, URL_PRODUCT } from '../../../api/services'
+import { api, URL_SALES_ORDER, URL_CLIENT, URL_PRODUCT } from '../../../api/services'
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -17,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const OrderForm = ({ orderEdit, isModEdit, showOrders }) => {
+    const [showMessage, setShowMessage] = useState(false)
+    const [message, setMessage] = useState("Pedido processado com sucesso")
+    const [typeMessage, setTypeMessage] = useState("success")
     const classes = useStyles();
     const initializeOrder = {
         product: {
@@ -39,6 +43,13 @@ const OrderForm = ({ orderEdit, isModEdit, showOrders }) => {
         total_value: ""
     }
 
+    const initializeProduct = {
+        id: "",
+        name: "",
+        description: "",
+        quantity: "",
+        price: ""
+    }
     const [order, setOrder] = useState(initializeOrder)
 
     React.useEffect(() => {
@@ -61,7 +72,13 @@ const OrderForm = ({ orderEdit, isModEdit, showOrders }) => {
 
     const setProduct = (product) => {
         const tempOrder = order
-        tempOrder.product = product
+
+        if(product){
+            tempOrder.product = product
+        }else{
+            tempOrder.product = initializeProduct
+        }
+        
         setOrder({ ...tempOrder })
         updateValues()
     };
@@ -94,17 +111,35 @@ const OrderForm = ({ orderEdit, isModEdit, showOrders }) => {
     };
 
     const submitOrderInsert = (order) => {
-        api.post(URL_ORDER, order).then(response => {
-            showOrders(null, 0)
+        api.post(URL_SALES_ORDER, order).then(response => {
+            showMessageApi(response)
+            setOrder(initializeOrder)
+
+        }).catch(error => {
+            showMessageApi(error.response)
         })
 
     };
 
     const submitOrderUpdate = (order) => {
 
-        api.patch(`${URL_ORDER}/${order.id}`, order).then(response => {
-            showOrders(null, 0)
+        api.patch(`${URL_SALES_ORDER}/${order.id}`, order).then(response => {
+            showMessageApi(response)
+        }).catch(error => {
+            showMessageApi(error.response)
         })
+
+    };
+
+    const showMessageApi = (response) => {
+        if (response.status == 200) {
+            setTypeMessage("success")
+        } else {
+            setTypeMessage("error")
+        }
+
+        setMessage(response.data.message)
+        setShowMessage(true)
 
     };
 
@@ -137,12 +172,13 @@ const OrderForm = ({ orderEdit, isModEdit, showOrders }) => {
                         name="quantity"
                         label="Quantidade"
                         fullWidth
+                        disabled={isModEdit}
                         value={order.quantity}
                         onChange={element => changePropsOrder(element)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField
+                    <CurrencyNumber
                         required
                         id="unit_value"
                         name="unit_value"
@@ -150,25 +186,25 @@ const OrderForm = ({ orderEdit, isModEdit, showOrders }) => {
                         fullWidth
                         disabled
                         value={order.product.price}
-                        onChange={element => changePropsOrder(element)}
+                        onChange={changePropsOrder}
                     />
                 </Grid>
             </Grid>
 
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
-                    <TextField
+                    <CurrencyNumber
                         required
                         id="discount_value"
                         name="discount_value"
-                        label="Toral Desconto"
+                        label="Total Desconto"
                         fullWidth
                         value={order.discount_value}
-                        onChange={element => changePropsOrder(element)}
+                        onChange={changePropsOrder}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField
+                    <CurrencyNumber
                         required
                         id="total_value"
                         name="total_value"
@@ -176,7 +212,7 @@ const OrderForm = ({ orderEdit, isModEdit, showOrders }) => {
                         fullWidth
                         disabled
                         value={(order.product.price * order.quantity) - order.discount_value}
-                        onChange={element => changePropsOrder(element)}
+                        onChange={changePropsOrder}
                     />
                 </Grid>
             </Grid>
@@ -189,6 +225,9 @@ const OrderForm = ({ orderEdit, isModEdit, showOrders }) => {
             >
                 SALVAR
             </Button>
+            {showMessage &&
+                <Alert type={typeMessage} message={message} showMessage={setShowMessage} />
+            }
         </React.Fragment>
     )
 }

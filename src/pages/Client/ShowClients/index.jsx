@@ -280,6 +280,7 @@ export default function EnhancedTable(props) {
 
         api.delete(`${URL_CLIENT}/${productSelected[0].id}`).then(response => {
             setRows(products)
+            setSelected([]);
         })
 
     };        

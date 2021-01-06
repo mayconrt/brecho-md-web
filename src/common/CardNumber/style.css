@@ -2,8 +2,8 @@
     display: grid;
     justify-content: center;
     text-align: center;
-    width: 180px;
-    height: 80px;
+    width: 200px;
+    height: 200px;
     padding: 16px;
     margin: 16px;
     box-sizing: border-box;
@@ -21,8 +21,7 @@
 
 .ma-div-card span {
     font-size: 20px;
-    font-weight: 700;
-    color: #f76f6f;
+    font-weight: 500;
 }
 
 .ma-div-card svg {

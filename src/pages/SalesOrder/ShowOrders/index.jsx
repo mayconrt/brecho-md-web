@@ -20,7 +20,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-import { api, URL_ORDER } from '../../../api/services'
+import { api, URL_SALES_ORDER } from '../../../api/services'
 
 
 function descendingComparator(a, b, orderBy) {
@@ -220,7 +220,7 @@ export default function EnhancedTable(props) {
 
         (async () => {
 
-            api.get(`${URL_ORDER}/all`).then(response => {
+            api.get(`${URL_SALES_ORDER}/all`).then(response => {
                 setRows(response.data.data)
             })
 
@@ -314,8 +314,9 @@ export default function EnhancedTable(props) {
         const orderSelected = rows.filter(function (obj) { return obj.id == selected[0]; });
         const orders = rows.filter(function (obj) { return obj.id != selected[0]; });
 
-        api.delete(`${URL_ORDER}/${orderSelected[0].id}`).then(response => {
+        api.delete(`${URL_SALES_ORDER}/${orderSelected[0].id}`).then(response => {
             setRows(orders)
+            setSelected([]);
         })
 
     };

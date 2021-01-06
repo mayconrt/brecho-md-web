@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     background-color: #D99EBA;
-    opacity: 0.7;
+    opacity: 0.5;
 }
 
 .ma-div-login > div{
@@ -25,8 +25,8 @@
     width: 100%;
     border: none;
     border-bottom: 3px;
-    background-color: #ebebeb;
-    color: #3b4e5c;
+    background-color: #f0c5df;
+    color: #362932;
     padding: 16px; 
     margin-bottom: 25px;
     box-sizing: border-box;

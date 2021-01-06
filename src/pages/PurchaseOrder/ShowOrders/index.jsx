@@ -297,16 +297,17 @@ export default function EnhancedTable(props) {
         order.discount_value = orderSelected[0].discount_value
         order.total_value = orderSelected[0].total_value
 
-        console.log('sera', orderSelected[0])
         props.changeTab(order, 2)
     }
 
     const submitOrderDelete = () => {
+
         const orderSelected = rows.filter(function (obj) { return obj.id == selected[0]; });
         const orders = rows.filter(function (obj) { return obj.id != selected[0]; });
 
         api.delete(`${URL_PURCHASE_ORDER}/${orderSelected[0].id}`).then(response => {
             setRows(orders)
+            setSelected([]);
         })
 
     };

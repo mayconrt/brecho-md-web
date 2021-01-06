@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import Alert from '../../../common/Alert'
+import CurrencyNumber from '../../../common/CurrencyNumber'
 
 import { api, URL_PRODUCT } from '../../../api/services'
 
@@ -14,12 +16,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ProductForm = ({productEdit, isModEdit, showProducts}) => {
+const ProductForm = ({ productEdit, isModEdit, showProducts }) => {
+    const [showMessage, setShowMessage] = useState(false)
+    const [message, setMessage] = useState("Produto processado com sucesso")
+    const [typeMessage, setTypeMessage] = useState("success")
     const classes = useStyles();
     const initializeProduct = {
         name: "",
         description: "",
-        quantity: "",
+        quantity: 0,
         price: ""
     }
 
@@ -28,10 +33,10 @@ const ProductForm = ({productEdit, isModEdit, showProducts}) => {
     React.useEffect(() => {
         if (productEdit) {
             setProduct({ ...productEdit })
-        }else{
+        } else {
             setProduct({ ...initializeProduct })
         }
-      }, []);    
+    }, []);
 
     const changePropsProduct = (element) => {
         const tempProduct = product
@@ -42,9 +47,9 @@ const ProductForm = ({productEdit, isModEdit, showProducts}) => {
     };
 
     const submitProduct = () => {
-        if(isModEdit){
+        if (isModEdit) {
             submitProductUpdate()
-        }else{
+        } else {
             submitProductInsert()
         }
 
@@ -52,19 +57,37 @@ const ProductForm = ({productEdit, isModEdit, showProducts}) => {
 
     const submitProductInsert = () => {
         api.post(URL_PRODUCT, product).then(response => {
-            showProducts(null, 0)
+            showMessageApi(response)
+            setProduct(initializeProduct)
+
+        }).catch(error => {
+            showMessageApi(error.response)
         })
 
-    };    
+    };
 
     const submitProductUpdate = () => {
 
         api.patch(`${URL_PRODUCT}/${product.id}`, product).then(response => {
-            showProducts(null, 0)
+            showMessageApi(response)
+        }).catch(error => {
+            showMessageApi(error.response)
         })
 
     };
-    
+
+    const showMessageApi = (response) => {
+        if (response.status == 200) {
+            setTypeMessage("success")
+        } else {
+            setTypeMessage("error")
+        }
+
+        setMessage(response.data.message)
+        setShowMessage(true)
+
+    };
+
     return (
         <React.Fragment>
             <Grid container spacing={3}>
@@ -96,6 +119,7 @@ const ProductForm = ({productEdit, isModEdit, showProducts}) => {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
+                        disabled
                         id="quantity"
                         name="quantity"
                         label="Quantidade"
@@ -106,14 +130,14 @@ const ProductForm = ({productEdit, isModEdit, showProducts}) => {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField
+                    <CurrencyNumber
                         required
                         id="price"
                         name="price"
                         label="Preço"
                         fullWidth
                         value={product.price}
-                        onChange={element => changePropsProduct(element)}
+                        onChange={changePropsProduct}
                     />
                 </Grid>
             </Grid>
@@ -126,6 +150,9 @@ const ProductForm = ({productEdit, isModEdit, showProducts}) => {
             >
                 SALVAR
             </Button>
+            {showMessage &&
+                <Alert type={typeMessage} message={message} showMessage={setShowMessage} />
+            }
         </React.Fragment>
     )
 }
